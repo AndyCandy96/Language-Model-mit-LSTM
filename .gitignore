@@ -1,0 +1,16 @@
+# node_modules Ordner ignorieren
+node_modules/
+
+# Log-Dateien ignorieren
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# .env-Dateien (falls vorhanden) ignorieren
+.env
+
+# Mac-spezifische Dateien ignorieren
+.DS_Store
+
+# Verzeichnis für temporäre Dateien
+*.log

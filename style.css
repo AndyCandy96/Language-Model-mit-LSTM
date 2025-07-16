@@ -1,0 +1,147 @@
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  background: 
+    radial-gradient(circle at 25% 25%, hsl(296, 80%, 45%), hsl(296, 80%, 35%) 60%),
+    radial-gradient(circle at 75% 75%, hsl(296, 70%, 40%), hsl(296, 70%, 30%) 70%),
+    linear-gradient(135deg, hsl(296, 80%, 45%) 0%, hsl(296, 70%, 40%) 50%, hsl(296, 70%, 35%) 100%);
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  animation: moveGradient 30s ease infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 80%;
+  height: 100px;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#predictions {
+  margin-top: 20px;
+}
+
+#wordList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#wordList li {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+  
+  
+  
+  .column {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+  }
+  
+  .column:last-child {
+    margin-right: 0;
+  }
+  
+  .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* 👇 Canvas-Styling */
+  canvas {
+    display: block;
+    width: 500px;
+    min-width: 477px;
+    height: 200px;
+    border: 3px solid #000000;
+    margin-bottom: 2rem;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .blocksatz {
+    text-align: justify;
+  }
+  
+  
+  .example-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .example-pair {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .example-pair img {
+    width: 300%;
+    max-width: 477px;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 1rem;
+    border: 3px solid #000000;
+    border-radius: 10px;
+    
+  }
+  
+  .example-pair canvas {
+    display: block;
+    width: 300px;
+    height: 200px;
+    max-width: 485px;
+    max-height: 205px;
+    border: 3px solid #000000;
+    margin-bottom: 2rem;
+    background: #fff;
+    border-radius: 8px;
+  }

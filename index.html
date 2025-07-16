@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Language Model mit LSTM</title>
+  <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <h1>Deep Learning Einsendeaufgabe 3 - Language Model mit LSTM</h1>
+        <h3>Name: Andre Zahn <br/> Hochschule: Ostfalia <br/> Matrikelnummer: 70487656 </h3>
+
+        <section id="discussion">
+            <h2>Beschreibung:</h2>
+            <p class="blocksatz">
+                In dieser Anwednung kannst du einen Text eingeben und ein LSTM Modell schlägt dir Wörter vor, um deinen Text fotzuführen.
+                Klicke "Vorhersage" um dir ein neues Wort vorschlagen zu lassen, "Weiter" um dieses Wort an deinen Text hinten anzufügen,
+                "Auto" um bis zu 10 Wörter an den Text anzufügen, "Stopp" um die Autofunktion zu stoppen und "Reset" um die Texteingabe neu zu beginnen.
+            </p>
+        </section>
+        
+        <!-- Text Eingabefeld -->
+        <textarea id="inputText" rows="4" cols="50" placeholder="Gib einen Text ein..."></textarea>
+
+        <!-- Anzeige der Vorhersage und Auswahl -->
+        <div id="predictions">
+          <p>Wähle das nächste Wort:</p>
+          <ul id="wordList"></ul>
+        </div>
+
+        <!-- Buttons -->
+        <button id="predictButton">Vorhersage</button>
+        <button id="continueButton">Weiter</button>
+        <button id="autoButton">Auto</button>
+        <button id="stopButton">Stopp</button>
+        <button id="resetButton">Reset</button>
+
+        <div>
+            <h3>Vorhergesagte Wörter:</h3>
+            <ul id="predictionsList"></ul>
+        </div>
+
+        <section id="discussion">
+            <h2>Diskussion:</h2>
+            <p class="blocksatz">
+                Zunächst hatte ich viele Probleme und Schwierigkeiten die Tensoren für die Eingabedaten xTrain und yTrain in die richtige Form [batchSize, sequenceLength, features] zu bringen. 
+                Um das Modell, als es dann funktionsfähig war, zu testen und dabei an den verschiedensten Parametern herumzuprobieren, ließ ich mir 2 verschiedene Dinge in der Console anzeigen: Die Entwicklung des Loss von Epoche zu Epoche und einen kleinen Text, den mir das Modell nach dem Training generierte.
+                Je mehr Artikel einbezogen wurden, umso größer wurden Vokabular und Verständins für Sprache. 
+                Leider konnte mein Mac Book Pro die 10000 Artikel nicht verarbeiten. Die Anzahl der Epochen zu erhöhen war der wichtigste Schritt um das Modell zu verbessern und den Loss zu senken doch auch die Adam-Lernrate zu minimieren führte dazu, dass das Modell langsamer aber stabiler lernte und der Loss stetig sank. 
+                Die Batch Size zu verringern hatte einen ähnlichen Effekt. 
+                Die Sampling Temperatur zu minimieren sorgte für akkuratere aber auch unkreativere und vorallem substantivlastige Texte. 
+                Am Ende entschied ich mich für 600 Artikel, 1000 Epochen, eine Adam-Lernrate von 0.002, eine Batch Size von 16 und eine Sampling Temperatur von 0.8, weil ich so den Loss auf 0.21279111504554749 in der 999sten Epoche senken konnte. Außerdem probierte ich topK- und topP-Sampling aus. 
+                Es half dabei die Texte weniger substantivlastig zu machen aber sorgte auch für mehr merkwürdige Wiederholungen.
+                Die Webanwendung zur Wortvorhersage zu implementieren kostete viel Zeit, die schlussendlich leider fehlte, um die verschiedenen Parameter hierfür ebenfalls zu optimieren und zu testen, weshalb die Wortvorhersage sich oft früher oder später auf ein und das selbe Wort festlegt.
+                Ich hätte gerne ebenfalls einen anderen Datensatz getestet, welcher dem Modell sicher ein eher lyrisches und weniger nachrichtenorientiertes Vokabular verliehen hätte.
+            </p>
+        </section>
+
+    <section id="documentation">
+        <h2>Dokumentation:</h2>
+        <h3>Technisch:</h3>
+        <p>Die wichtigsten Dateien bzw. Klassen in diesem TensorFlow-JavaScript-Projekt sind:
+        <ul>
+            <li><p class="blocksatz"><b>data_preprocessing.js :</b> Hier wird in JavaScript der Datensatz vorverarbeitet (indem nur der Content der Artikel berücksichtigt, Sonderzeichen entfernt und der Text in einzelne Wörter zerlgt werden) und das Vokabular des Modells erstellt.</p></li>
+            <li><p class="blocksatz"><b>model.js :</b> Hier werden in JavaScript die einzelnen Parameter der Modellarchitektur definiert.</p></li>
+            <li><p class="blocksatz"><b>model_training.js :</b> Hier wird in JavaScript das Modell trainiert. Außerdem wird zum Testen ein Beispieltext mit dem gelernten Vokabular und den gelernten Modellgewichten generiert. Eigentlich sollte die Logik für die Webanwendung in einer Etraklasse <b>app.js</b> implementiert werden doch ich entschied mich schlussendlich die Wortvorhersage und das Handling der Buttons in dieser Klasse hinzuzufügen.</p></li>
+            <li><b>style.css :</b> - für das Styling in CSS</li><br>
+            <li><b>index.html :</b> - für die Struktur der Weboberfläche</li> 
+        </ul>
+        Folgende externe Frameworks wurden eingebunden:
+        <ul>
+            <li><b>TensorFlow</b> wird verwendet, um neuronale Netze direkt im Browser zu definieren, zu trainieren und für laufende Anwendungen zugänglich zu machen.</li><br>
+            <li><b>PapaParse</b> wird verwendet, um die CSV Datei mit dem Datensatz auszulesen.</li><br>
+        </ul>
+        Der verwendete Datensatz:
+        <ul>
+            <li><b>TensorFlow</b>https://www.kaggle.com/datasets/abhishek/10k-german-news-articles/data</li><br>
+        </ul>
+        </p>
+
+
+        <h3>Fachlich:</h3>
+        <p>Entwicklungsschritte:
+            <ul>
+            <li>Entwicklung der Projekt-Grundstruktur (Ordner und Dateien)</li>
+            <li>Hosting auf GitHub-Pages</li> 
+            <li>Datensatz "10k German News Articles" von Kaggle herunterladen</li>
+            <li>Daten formatieren</li>
+            <li>Training der Modelle und Ausprobieren mit varriierenden Parametern: Anzahl der Epochen, Adam Lernrate, Batch Size, Temperatur, Top P und Top K Sampling, Umfang des Trainingsdatensatzes mit maximal 800 Artikeln</li>
+            <li>Testen mit einem Text, der direkt generiert wurde</li>
+            <li>Versuch einer app.js Datei um die Logik der Oberfläche zu implementieren</li>
+            <li>Viele Versuche das WordToId Mapping zu handeln</li>
+            <li>Umbau der kompletten Logik um die app.js Klasse zu umgehen</li>
+            <li>Diskussion und Dokumentation</li>
+            </ul>
+
+            Hilfsmittel und Quellen:
+            <ul>
+            <li>https://homes.cs.washington.edu/~nasmith/papers/plm.17.pdf</li>
+            <li>https://stackoverflow.com</li>
+            <li>https://chatgpt.com</li>
+            <li>https://gombru.github.io/2018/05/23/cross_entropy_loss/</li>
+            <li>https://towardsdatascience.com/next-word-prediction-with-nlp-and-deep-learning-48b9fe0a17bf/</li>
+            <li>https://www.perplexity.ai/</li>
+            <li>https://www.tensorflow.org/js/</li>
+            </ul>
+        </p>
+        </section>
+  
+    </main>
+
+    <script type="module" src="data_preprocessing.js"></script>
+    <script type="module" src="model.js"></script>
+    <script type="module" src="model_training.js"></script>
+</body>
+</html>
