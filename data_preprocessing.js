@@ -62,7 +62,7 @@ export const createSequences = (articles, sequenceLength, wordToId) => {
 };
 
 // Lade Artikel aus der CSV
-Papa.parse('archive/Articles.csv', {
+Papa.parse('./Articles.csv', {
   download: true,
   header: true,
   complete: function(results) {

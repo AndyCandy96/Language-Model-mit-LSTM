@@ -77,7 +77,7 @@ const predictNextWord = async (inputText) => {
 };
 
 // Lade Artikel aus der CSV und erstelle Trainingsdaten
-Papa.parse('archive/Articles.csv', {
+Papa.parse('./Articles.csv', {
   download: true,
   header: true,
   complete: function(results) {
